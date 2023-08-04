@@ -17,6 +17,10 @@
       font-weight: normal;
       font-style: normal;
     }
+    .hovered {
+      background-color: #ebfe00;
+      /* height: 20px; */
+    }
   </style>
   <body>
     <article class="relative h-screen">
@@ -51,9 +55,57 @@
         </div>
       </div>
 
-      <div class="absolute right-20 top-[25%] w-1/6 flex flex-col">
-        <ul class="flex flex-col gap-y-6 myWork">
+      <div class="absolute right-20 top-[25%] w-[150px] flex flex-col">
+        <ul class="flex flex-col gap-y-6" id="menu">
           <li class="text-right text-neutral-400 font-bold">MY WORK</li>
+          <li
+            class="text-right relative cursor-pointer tracking-wide text-neutral-900 text-4xl font-bold project"
+          >
+            목록1
+            <div
+              class="mark hidden absolute bottom-0 bg-[#ebfe00] h-[50%] w-full -z-10"
+            ></div>
+          </li>
+          <li
+            class="text-right relative cursor-pointer tracking-wide text-neutral-900 text-4xl font-bold project"
+          >
+            목록2
+            <div
+              class="mark hidden absolute bottom-0 bg-[#ebfe00] h-[50%] w-full -z-10"
+            ></div>
+          </li>
+          <li
+            class="text-right relative cursor-pointer tracking-wide text-neutral-900 text-4xl font-bold project"
+          >
+            목록3
+            <div
+              class="mark hidden absolute bottom-0 bg-[#ebfe00] h-[50%] w-full -z-10"
+            ></div>
+          </li>
+          <li
+            class="text-right relative cursor-pointer tracking-wide text-neutral-900 text-4xl font-bold project"
+          >
+            목록4
+            <div
+              class="mark hidden absolute bottom-0 bg-[#ebfe00] h-[50%] w-full -z-10"
+            ></div>
+          </li>
+          <li
+            class="text-right relative cursor-pointer tracking-wide text-neutral-900 text-4xl font-bold project"
+          >
+            목록5
+            <div
+              class="mark hidden absolute bottom-0 bg-[#ebfe00] h-[50%] w-full -z-10"
+            ></div>
+          </li>
+          <li
+            class="text-right relative cursor-pointer tracking-wide text-neutral-900 text-4xl font-bold project"
+          >
+            목록6
+            <div
+              class="mark hidden absolute bottom-0 bg-[#ebfe00] h-[50%] w-full -z-10"
+            ></div>
+          </li>
         </ul>
       </div>
 
@@ -65,59 +117,30 @@
   </body>
 
   <script>
-    const project = [
-      "Project1",
-      "Project2",
-      "Project3",
-      "Project4",
-      "Project5",
-      "Project6",
-    ];
-
-    let parent = document.querySelector(".myWork");
-
-    project.forEach((item, i) => {
-      parent.insertAdjacentHTML(
-        "beforeend",
-        `<li onmouseover={onMouseOverList(${i})} class="text-right relative cursor-pointer	 tracking-wide text-neutral-900 text-4xl font-bold projectList project${i}">${item}<div class='underlineMark${i} w-full h-[30px] absolute bottom-[-10px] -z-10'></div></li>`
+    gsap.utils.toArray(".project").forEach((el) => {
+      let asdf = el.querySelector(".mark");
+      let animation = gsap.to(el, { x: -20, paused: true });
+      let mark = gsap.fromTo(
+        asdf,
+        { autoAlpha: 0, x: -10 },
+        {
+          x: 30,
+          display: "block",
+          autoAlpha: 1,
+          background: "#ebfe00",
+          paused: true,
+        }
       );
+
+      el.addEventListener("mouseenter", () => {
+        animation.play();
+        mark.play();
+      });
+
+      el.addEventListener("mouseleave", () => {
+        animation.reverse();
+        mark.reverse();
+      });
     });
-
-    function underLineMark(index) {
-      let tween = gsap.to(`.underlineMark${index}`, {
-        background: "#ebfe00",
-        paused: true,
-        x: 40,
-      });
-
-      return tween;
-    }
-
-    function mouseEnter(animation, index) {
-      document.querySelector(".rightBg").classList.remove("bg-[#f5f5f5]");
-      animation.play();
-
-      // underLineMark(index).play();
-    }
-
-    function mouseLeave(animation, index) {
-      document.querySelector(".rightBg").classList.add("bg-[#f5f5f5]");
-      animation.reverse();
-
-      // tween.play();
-      // underLineMark(index).reverse();
-    }
-
-    function onMouseOverList(index) {
-      let animation = gsap.to(`.project${index}`, {
-        paused: true,
-        x: -10,
-      });
-      let text = document.querySelector(`.project${index}`);
-      text.addEventListener("mouseenter", () => animation.play());
-      text.addEventListener("mouseleave", () => animation.reverse());
-      // text.addEventListener("mouseenter", () => mouseEnter(animation, index));
-      // text.addEventListener("mouseleave", () => mouseLeave(animation, index));
-    }
   </script>
 </html>
