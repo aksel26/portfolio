@@ -1,15 +1,24 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 /**
  * Contact 섹션 컴포넌트
  * 연락처 정보 및 소셜 링크
  */
 export default function Contact() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // 타이틀 opacity: 섹션이 화면에 들어올 때 fade-in, 나갈 때 fade-out
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.2, 0.7, 1], [0, 1, 1, 0]);
   const contacts = [
     {
-      name: 'Email',
-      value: 'developer@example.com',
-      href: 'mailto:developer@example.com',
+      name: "Email",
+      value: "developer@example.com",
+      href: "mailto:developer@example.com",
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -18,9 +27,9 @@ export default function Contact() {
       ),
     },
     {
-      name: 'GitHub',
-      value: 'github.com/developer',
-      href: 'https://github.com',
+      name: "GitHub",
+      value: "github.com/developer",
+      href: "https://github.com",
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path
@@ -32,9 +41,9 @@ export default function Contact() {
       ),
     },
     {
-      name: 'LinkedIn',
-      value: 'linkedin.com/in/developer',
-      href: 'https://linkedin.com',
+      name: "LinkedIn",
+      value: "linkedin.com/in/developer",
+      href: "https://linkedin.com",
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -42,9 +51,9 @@ export default function Contact() {
       ),
     },
     {
-      name: 'Blog',
-      value: 'blog.example.com',
-      href: 'https://blog.example.com',
+      name: "Blog",
+      value: "blog.example.com",
+      href: "https://blog.example.com",
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -56,7 +65,7 @@ export default function Contact() {
         </svg>
       ),
     },
-  ]
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -66,83 +75,81 @@ export default function Contact() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-4xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-            연락하기
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
-          <p className="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
-            새로운 프로젝트나 협업 기회에 대해 이야기 나누고 싶으시다면 언제든지 연락주세요!
-          </p>
-        </motion.div>
+    <section ref={sectionRef} id="contact" className="py-32 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* 왼쪽: 타이틀 (Sticky) */}
+          <div className="lg:col-span-4">
+            <motion.div style={{ opacity: titleOpacity }} className="lg:sticky lg:top-32">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">Contact</h2>
+              <div className="w-20 h-1.5 bg-indigo-600 mb-6 rounded-full"></div>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                새로운 프로젝트나 협업 기회에 대해 이야기 나누고 싶으시다면 언제든지 연락주세요!
+              </p>
+            </motion.div>
+          </div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-6 mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {contacts.map((contact) => (
-            <motion.a
-              key={contact.name}
-              href={contact.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-xl transition-shadow"
+          {/* 오른쪽: 콘텐츠 */}
+          <div className="lg:col-span-8">
+            <motion.div
+              className="grid md:grid-cols-2 gap-6 mb-12"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
             >
-              <div className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-300">
-                {contact.icon}
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{contact.name}</p>
-                <p className="font-semibold text-gray-900 dark:text-white">{contact.value}</p>
-              </div>
-            </motion.a>
-          ))}
-        </motion.div>
+              {contacts.map((contact) => (
+                <motion.a
+                  key={contact.name}
+                  href={contact.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center gap-4 p-6 md:p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-shadow"
+                >
+                  <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg text-indigo-600 dark:text-indigo-400">{contact.icon}</div>
+                  <div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{contact.name}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{contact.value}</p>
+                  </div>
+                </motion.a>
+              ))}
+            </motion.div>
 
-        {/* CTA 섹션 */}
-        <motion.div
-          className="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h3 className="text-3xl font-bold text-white mb-4">
-            함께 일하고 싶으신가요?
-          </h3>
-          <p className="text-white/90 mb-6 max-w-xl mx-auto">
-            프론트엔드 개발, UI/UX 개선, 또는 기술 컨설팅이 필요하시다면 언제든지 연락해주세요.
-          </p>
-          <motion.a
-            href="mailto:developer@example.com"
-            className="inline-block px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:shadow-lg transition-shadow"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            이메일 보내기
-          </motion.a>
-        </motion.div>
+            {/* CTA 섹션 */}
+            <motion.div
+              className="bg-linear-to-br from-indigo-600 to-indigo-500 rounded-2xl p-10 md:p-12 shadow-xl shadow-indigo-500/30"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">함께 일하고 싶으신가요?</h3>
+              <p className="text-white/90 mb-8 max-w-xl text-lg leading-relaxed">
+                프론트엔드 개발, UI/UX 개선, 또는 기술 컨설팅이 필요하시다면 언제든지 연락해주세요.
+              </p>
+              <motion.a
+                href="mailto:developer@example.com"
+                className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-lg transition-shadow text-lg"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                이메일 보내기
+              </motion.a>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
-  )
+  );
 }
