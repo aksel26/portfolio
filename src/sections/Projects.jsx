@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useCountAnimation } from "../hooks/useCountAnimation";
 
 /**
  * Projects 섹션 컴포넌트
@@ -14,6 +15,7 @@ export default function Projects() {
 
   // 타이틀 opacity: 섹션이 화면에 들어올 때 fade-in, 나갈 때 fade-out
   const titleOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
   const projects = [
     {
       title: "이커머스 플랫폼",
@@ -54,7 +56,46 @@ export default function Projects() {
       demo: "#",
       index: 4,
     },
+    {
+      title: "소셜 미디어 분석 도구",
+      description: "다양한 소셜 미디어 플랫폼의 데이터를 수집하고 분석하는 대시보드입니다. 실시간 트렌드 분석과 인사이트 리포트를 제공합니다.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      tags: ["Vue.js", "D3.js", "Node.js", "MongoDB"],
+      github: "#",
+      demo: "#",
+      index: 5,
+    },
+    {
+      title: "실시간 채팅 애플리케이션",
+      description: "WebSocket 기반의 실시간 채팅 플랫폼입니다. 그룹 채팅, 파일 공유, 이모지 반응 등 다양한 기능을 지원합니다.",
+      image: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop",
+      tags: ["React", "Socket.io", "Express", "Redis"],
+      github: "#",
+      demo: "#",
+      index: 6,
+    },
+    {
+      title: "AI 이미지 갤러리",
+      description: "AI 기반 이미지 검색과 자동 태깅 기능을 갖춘 갤러리 애플리케이션입니다. 머신러닝을 활용한 스마트 검색을 제공합니다.",
+      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
+      tags: ["Next.js", "TensorFlow.js", "AWS S3"],
+      github: "#",
+      demo: "#",
+      index: 7,
+    },
+    {
+      title: "음악 스트리밍 플랫폼",
+      description: "반응형 디자인과 직관적인 UI로 최적화된 음악 스트리밍 서비스입니다. 플레이리스트 생성, 추천 알고리즘 등을 구현했습니다.",
+      image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=600&fit=crop",
+      tags: ["React", "Redux", "Web Audio API", "Spotify API"],
+      github: "#",
+      demo: "#",
+      index: 8,
+    },
   ];
+
+  // 프로젝트 개수 카운트 애니메이션
+  const { rounded, ref: countRef } = useCountAnimation(projects.length, 2);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -67,7 +108,7 @@ export default function Projects() {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-32 bg-white dark:bg-gray-900">
+    <section ref={sectionRef} id="projects" className="snap-section py-32 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
           {/* 왼쪽: 타이틀 (Sticky) */}
@@ -80,6 +121,10 @@ export default function Projects() {
                 Featured Projects
               </h2>
               <div className="w-20 h-1.5 bg-indigo-600 mb-6 rounded-full"></div>
+              <div ref={countRef} className="mb-4 flex items-baseline gap-2">
+                <motion.div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{rounded}</motion.div>
+                <span className="text-xl text-gray-600 dark:text-gray-400">Projects</span>
+              </div>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                 다양한 프로젝트를 통해 얻은 경험과 기술을 소개합니다.
               </p>

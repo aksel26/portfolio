@@ -1,6 +1,7 @@
 import { ThemeProvider } from './context/ThemeContext'
 import Header from './components/Header'
 import ScrollProgress from './components/ScrollProgress'
+import PageNavigation from './components/PageNavigation'
 import Footer from './components/Footer'
 import Hero from './sections/Hero'
 import About from './sections/About'
@@ -18,6 +19,9 @@ function App() {
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
         {/* 스크롤 진행바 */}
         <ScrollProgress />
+
+        {/* 페이지 네비게이션 */}
+        <PageNavigation />
 
         {/* 헤더/네비게이션 */}
         <Header />

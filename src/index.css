@@ -61,6 +61,11 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  scroll-snap-type: y mandatory;
 }
 
 /* 스크롤바 스타일링 */
@@ -88,4 +93,11 @@ html {
 
 :is(.dark *)::-webkit-scrollbar-thumb:hover {
   background: #888;
+}
+
+/* 스크롤 스냅 섹션 */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
 }

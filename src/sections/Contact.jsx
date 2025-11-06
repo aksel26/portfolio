@@ -83,9 +83,9 @@ export default function Contact() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="py-32 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+    <section ref={sectionRef} id="contact" className="snap-section flex items-center bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-6 py-20 w-full">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
           {/* 왼쪽: 타이틀 (Sticky) */}
           <div className="lg:col-span-4">
             <motion.div style={{ opacity: titleOpacity }} className="lg:sticky lg:top-32">
@@ -100,7 +100,7 @@ export default function Contact() {
           {/* 오른쪽: 콘텐츠 */}
           <div className="lg:col-span-8">
             <motion.div
-              className="grid md:grid-cols-2 gap-6 mb-12"
+              className="grid grid-cols-2 gap-4 mb-8"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -115,12 +115,12 @@ export default function Contact() {
                   variants={itemVariants}
                   whileHover={{ scale: 1.02, y: -5 }}
                   transition={{ duration: 0.3 }}
-                  className="flex items-center gap-4 p-6 md:p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-shadow"
+                  className="flex items-center gap-3 p-4 md:p-5 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-shadow"
                 >
-                  <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg text-indigo-600 dark:text-indigo-400">{contact.icon}</div>
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{contact.name}</p>
-                    <p className="font-semibold text-gray-900 dark:text-white">{contact.value}</p>
+                  <div className="p-2 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg text-indigo-600 dark:text-indigo-400">{contact.icon}</div>
+                  <div className="min-w-0">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{contact.name}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white text-sm truncate">{contact.value}</p>
                   </div>
                 </motion.a>
               ))}
@@ -128,19 +128,19 @@ export default function Contact() {
 
             {/* CTA 섹션 */}
             <motion.div
-              className="bg-linear-to-br from-indigo-600 to-indigo-500 rounded-2xl p-10 md:p-12 shadow-xl shadow-indigo-500/30"
+              className="bg-linear-to-br from-indigo-600 to-indigo-500 rounded-2xl p-6 md:p-8 shadow-xl shadow-indigo-500/30"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">함께 일하고 싶으신가요?</h3>
-              <p className="text-white/90 mb-8 max-w-xl text-lg leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">함께 일하고 싶으신가요?</h3>
+              <p className="text-white/90 mb-6 max-w-xl text-sm md:text-base leading-relaxed">
                 프론트엔드 개발, UI/UX 개선, 또는 기술 컨설팅이 필요하시다면 언제든지 연락해주세요.
               </p>
               <motion.a
                 href="mailto:developer@example.com"
-                className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-lg transition-shadow text-lg"
+                className="inline-block px-6 py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:shadow-lg transition-shadow"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >

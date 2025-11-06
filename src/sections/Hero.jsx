@@ -19,7 +19,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="snap-section relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* 애니메이션 배경 그라디언트 */}
       <div className="absolute inset-0 bg-white dark:bg-gray-900">
