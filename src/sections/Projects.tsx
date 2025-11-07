@@ -1,13 +1,23 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, ReactNode } from "react";
 import { useCountAnimation } from "../hooks/useCountAnimation";
+
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  github: string;
+  demo: string;
+  index: number;
+}
 
 /**
  * Projects 섹션 컴포넌트
  * 리스트 형식의 카드 UI
  */
 export default function Projects() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -16,7 +26,7 @@ export default function Projects() {
   // 타이틀 opacity: 섹션이 화면에 들어올 때 fade-in, 나갈 때 fade-out
   const titleOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "이커머스 플랫폼",
       description:
@@ -151,11 +161,15 @@ export default function Projects() {
   );
 }
 
+interface ProjectCardProps {
+  project: Project;
+}
+
 /**
  * 개별 프로젝트 카드 컴포넌트
  * 왼쪽: 썸네일, 오른쪽: 설명
  */
-function ProjectCard({ project }) {
+function ProjectCard({ project }: ProjectCardProps) {
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {

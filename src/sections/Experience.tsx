@@ -17,7 +17,7 @@ const VIEWPORT_MARGIN = "-50px";
 const ITEM_APPEAR_DURATION_SECONDS = 0.6;
 
 export default function Experience() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -27,10 +27,10 @@ export default function Experience() {
   const titleOpacity = useTransform(scrollYProgress, [TITLE_FADE_IN_START, TITLE_FADE_IN_END, TITLE_FADE_OUT_START, TITLE_FADE_OUT_END], [0, 1, 1, 0]);
 
   // 총 경력 계산 (년 단위)
-  const calculateTotalYears = () => {
+  const calculateTotalYears = (): number => {
     if (EXPERIENCES.length === 0) return 0;
 
-    const parseDate = (dateStr) => {
+    const parseDate = (dateStr: string): Date => {
       const [year, month] = dateStr.split(".").map((num) => parseInt(num));
       return new Date(year, month - 1);
     };
@@ -42,7 +42,7 @@ export default function Experience() {
     const endPeriod = latestExperience.period.split(" - ")[1];
     const endDate = endPeriod === "현재" ? new Date() : parseDate(endPeriod);
 
-    const years = (endDate - startDate) / (1000 * 60 * 60 * 24 * 365);
+    const years = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365);
     return Math.floor(years);
   };
 
@@ -74,9 +74,9 @@ export default function Experience() {
   };
 
   return (
-    <section ref={sectionRef} id="experience" className="snap-section py-32 bg-gray-50 dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+    <section ref={sectionRef} id="experience" className="snap-section flex items-center bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-6 py-20 w-full">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
           {/* 왼쪽: 타이틀 (Sticky) */}
           <div className="lg:col-span-4">
             <motion.div style={{ opacity: titleOpacity }} className="lg:sticky lg:top-32">
@@ -92,7 +92,7 @@ export default function Experience() {
           </div>
 
           {/* 오른쪽: 타임라인 콘텐츠 */}
-          <div className="lg:col-span-8 space-y-8">
+          <div className="lg:col-span-8 space-y-4 max-h-[70vh] overflow-y-auto pr-2 scrollbar-thin">
             {EXPERIENCES.map((experience, index) => (
               <motion.div
                 key={`${experience.title}-${index}`}

@@ -1,12 +1,19 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, ReactNode } from "react";
+
+interface Contact {
+  name: string;
+  value: string;
+  href: string;
+  icon: ReactNode;
+}
 
 /**
  * Contact 섹션 컴포넌트
  * 연락처 정보 및 소셜 링크
  */
 export default function Contact() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -14,7 +21,7 @@ export default function Contact() {
 
   // 타이틀 opacity: 섹션이 화면에 들어올 때 fade-in, 나갈 때 fade-out
   const titleOpacity = useTransform(scrollYProgress, [0, 0.2, 0.7, 1], [0, 1, 1, 0]);
-  const contacts = [
+  const contacts: Contact[] = [
     {
       name: "Email",
       value: "developer@example.com",

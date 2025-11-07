@@ -6,7 +6,7 @@ import { useRef } from 'react'
  * 메인 소개 영역
  */
 export default function Hero() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start']

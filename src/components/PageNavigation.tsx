@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
  */
 export default function PageNavigation() {
   const [activeSection, setActiveSection] = useState("hero");
-  const visibleSections = useRef(new Set());
+  const visibleSections = useRef(new Set<string>());
 
   const sections = [
     { id: "hero", label: "Home" },
@@ -26,7 +26,7 @@ export default function PageNavigation() {
       }));
 
       const windowCenter = window.innerHeight / 2;
-      let closestSection = null;
+      let closestSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionElements.forEach(({ id, element }) => {
@@ -79,7 +79,7 @@ export default function PageNavigation() {
     };
   }, []);
 
-  const handleClick = (sectionId) => {
+  const handleClick = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });

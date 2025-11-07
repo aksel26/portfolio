@@ -1,12 +1,25 @@
+import LogoLoop from "@/components/LogoLoop";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+
+interface Skill {
+  name: string;
+  level: string;
+}
+
+const techLogos = [
+  { node: <p>adsf</p>, title: "React", href: "https://react.dev" },
+  { node: <p>adsf</p>, title: "Next.js", href: "https://nextjs.org" },
+  { node: <p>adsf</p>, title: "TypeScript", href: "https://www.typescriptlang.org" },
+  { node: <p>adsf</p>, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+];
 
 /**
  * About 섹션 컴포넌트
  * 자기소개 및 기술 스택
  */
 export default function About() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -17,15 +30,24 @@ export default function About() {
   // 타이틀 opacity: 섹션이 화면에 들어올 때 fade-in, 나갈 때 fade-out
   const titleOpacity = useTransform(scrollYProgress, [0, 0.2, 0.7, 1], [0, 1, 0.5, 0]);
 
-  const skills = [
-    { name: "React", level: 90 },
-    { name: "TypeScript", level: 85 },
-    { name: "JavaScript", level: 95 },
-    { name: "Tailwind CSS", level: 90 },
-    { name: "Next.js", level: 80 },
-    { name: "Git", level: 85 },
-    { name: "Framer Motion", level: 75 },
-    { name: "Vite", level: 80 },
+  const technicalSkills: Skill[] = [
+    { name: "React", level: "상" },
+    { name: "TypeScript", level: "상" },
+    { name: "JavaScript", level: "상" },
+    { name: "Tailwind CSS", level: "상" },
+    { name: "Next.js", level: "중" },
+    { name: "Framer Motion", level: "중" },
+    { name: "Vite", level: "중" },
+    { name: "Node.js", level: "중" },
+  ];
+
+  const collaborationTools: Skill[] = [
+    { name: "Git", level: "상" },
+    { name: "GitHub", level: "상" },
+    { name: "Figma", level: "중" },
+    { name: "Jira", level: "중" },
+    { name: "Slack", level: "상" },
+    { name: "Notion", level: "중" },
   ];
 
   const containerVariants = {
@@ -75,7 +97,7 @@ export default function About() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
             >
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-800">
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
                   <div className="w-1 h-6 bg-indigo-600 rounded-full"></div>
                   안녕하세요
@@ -91,30 +113,51 @@ export default function About() {
             </motion.div>
 
             {/* 기술 스택 */}
-            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+            >
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-6">Technical Skills</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {skills.map((skill) => (
-                  <motion.div key={skill.name} variants={itemVariants} className="group">
-                    <div className="flex justify-between mb-2">
-                      <span className="font-semibold text-gray-900 dark:text-white text-sm">{skill.name}</span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-linear-to-r from-indigo-600 to-indigo-400 rounded-full"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 1,
-                          delay: 0.2,
-                          ease: "easeOut",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
+
+              <div className="space-y-10">
+                {/* Development 로고 루프 */}
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">Collaboration</h4>
+                  <div style={{ position: "relative", overflow: "hidden" }} className="w-full">
+                    <LogoLoop
+                      logos={techLogos}
+                      speed={80}
+                      direction="left"
+                      logoHeight={20}
+                      gap={40}
+                      pauseOnHover
+                      scaleOnHover
+                      fadeOut
+                      fadeOutColor="#f9fafb"
+                      ariaLabel="Technology partners"
+                    />
+                  </div>
+                </div>
+                {/* Collaboration 로고 루프 */}
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">Collaboration</h4>
+                  <div style={{ position: "relative", overflow: "hidden" }} className="w-full">
+                    <LogoLoop
+                      logos={techLogos}
+                      speed={80}
+                      direction="left"
+                      logoHeight={20}
+                      gap={40}
+                      pauseOnHover
+                      scaleOnHover
+                      fadeOut
+                      fadeOutColor="#f9fafb"
+                      ariaLabel="Technology partners"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* 추가 정보 */}
