@@ -3,7 +3,7 @@ import { useEffect, useRef, RefObject } from "react";
 
 interface UseCountAnimationReturn {
   rounded: MotionValue<number>;
-  ref: RefObject<HTMLElement>;
+  ref: RefObject<HTMLDivElement>;
 }
 
 /**
@@ -13,7 +13,7 @@ interface UseCountAnimationReturn {
  * @returns { rounded: MotionValue, ref: React.Ref }
  */
 export function useCountAnimation(target: number, duration: number = 2): UseCountAnimationReturn {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));

@@ -20,7 +20,7 @@ export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // 타이틀 opacity: 섹션이 화면에 들어올 때 fade-in, 나갈 때 fade-out
@@ -123,33 +123,20 @@ export default function Projects() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
           {/* 왼쪽: 타이틀 (Sticky) */}
           <div className="lg:col-span-4">
-            <motion.div
-              style={{ opacity: titleOpacity }}
-              className="lg:sticky lg:top-32"
-            >
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-                Featured Projects
-              </h2>
+            <motion.div style={{ opacity: titleOpacity }} className="lg:sticky lg:top-32">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-gray-900 dark:text-white mb-6">프로젝트</h2>
               <div className="w-20 h-1.5 bg-indigo-600 mb-6 rounded-full"></div>
               <div ref={countRef} className="mb-4 flex items-baseline gap-2">
                 <motion.div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{rounded}</motion.div>
                 <span className="text-xl text-gray-600 dark:text-gray-400">Projects</span>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                다양한 프로젝트를 통해 얻은 경험과 기술을 소개합니다.
-              </p>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">다양한 프로젝트를 통해 얻은 경험과 기술을 소개합니다.</p>
             </motion.div>
           </div>
 
           {/* 오른쪽: 프로젝트 카드 리스트 */}
           <div className="lg:col-span-8">
-            <motion.div
-              className="space-y-8"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-            >
+            <motion.div className="space-y-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
               {projects.map((project) => (
                 <ProjectCard key={project.title} project={project} />
               ))}
@@ -194,9 +181,7 @@ function ProjectCard({ project }: ProjectCardProps) {
         <div className="md:col-span-2 relative overflow-hidden">
           {/* 프로젝트 번호 */}
           <div className="absolute top-4 left-4 z-10">
-            <span className="inline-block px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow-lg">
-              #{project.index}
-            </span>
+            <span className="inline-block px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow-lg">#{project.index}</span>
           </div>
 
           {/* 이미지 */}
@@ -252,9 +237,7 @@ function ProjectCard({ project }: ProjectCardProps) {
           </h3>
 
           {/* 설명 */}
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 text-base">
-            {project.description}
-          </p>
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 text-base">{project.description}</p>
 
           {/* 기술 스택 */}
           <div className="flex flex-wrap gap-2 mb-6">

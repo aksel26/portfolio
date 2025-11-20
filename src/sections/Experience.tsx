@@ -12,7 +12,6 @@ const TITLE_FADE_IN_START = 0;
 const TITLE_FADE_IN_END = 0.2;
 const TITLE_FADE_OUT_START = 0.4;
 const TITLE_FADE_OUT_END = 1;
-const STAGGER_CHILDREN_SECONDS = 0.2;
 const VIEWPORT_MARGIN = "-50px";
 const ITEM_APPEAR_DURATION_SECONDS = 0.6;
 
@@ -51,16 +50,6 @@ export default function Experience() {
   // 카운트 애니메이션
   const { rounded, ref: countRef } = useCountAnimation(totalYears, 2);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: STAGGER_CHILDREN_SECONDS,
-      },
-    },
-  };
-
   const itemVariants = {
     hidden: { opacity: 0, x: 100 },
     visible: {
@@ -74,36 +63,41 @@ export default function Experience() {
   };
 
   return (
-    <section ref={sectionRef} id="experience" className="snap-section flex items-center bg-gray-50 dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-6 py-20 w-full">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <section ref={sectionRef} id="experience" className="snap-section flex items-center bg-gray-50 dark:bg-gray-950 py-20 lg:py-32">
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
           {/* 왼쪽: 타이틀 (Sticky) */}
           <div className="lg:col-span-4">
             <motion.div style={{ opacity: titleOpacity }} className="lg:sticky lg:top-32">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">Experience</h2>
-              <div className="w-20 h-1.5 bg-indigo-600 mb-6 rounded-full"></div>
-              <div ref={countRef} className="mb-4 flex items-baseline gap-1">
-                <motion.div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{rounded}</motion.div>
-                <span className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">+</span>
-                <span className="text-xl text-gray-600 dark:text-gray-400 ml-1">Years</span>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-gray-900 dark:text-white mb-8 tracking-tight">Experience</h2>
+              <div className="w-24 h-1.5 bg-indigo-600 mb-8 rounded-full"></div>
+              <div ref={countRef} className="mb-6 flex items-baseline gap-2">
+                <motion.div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{rounded}</motion.div>
+                <span className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">+</span>
+                <span className="text-2xl text-gray-600 dark:text-gray-400 font-light">Years of Journey</span>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">다양한 환경에서 쌓아온 실무 경험과 성장 과정입니다.</p>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-light">
+                끊임없는 도전과 성장을 통해<br className="hidden lg:block" /> 
+                더 나은 가치를 만들어갑니다.
+              </p>
             </motion.div>
           </div>
 
           {/* 오른쪽: 타임라인 콘텐츠 */}
-          <div className="lg:col-span-8 space-y-4 max-h-[70vh] overflow-y-auto pr-2 scrollbar-thin">
-            {EXPERIENCES.map((experience, index) => (
-              <motion.div
-                key={`${experience.title}-${index}`}
-                variants={itemVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: VIEWPORT_MARGIN }}
-              >
-                <ExperienceItem experience={experience} index={index} />
-              </motion.div>
-            ))}
+          <div className="lg:col-span-8">
+            <div className="space-y-12">
+              {EXPERIENCES.map((experience, index) => (
+                <motion.div
+                  key={`${experience.title}-${index}`}
+                  variants={itemVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: VIEWPORT_MARGIN }}
+                >
+                  <ExperienceItem experience={experience} index={index} isLast={index === EXPERIENCES.length - 1} />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -82,7 +82,7 @@ export default function About() {
           {/* 왼쪽: 타이틀 (Sticky) */}
           <div className="lg:col-span-4">
             <motion.div style={{ opacity: titleOpacity }} className="lg:sticky lg:top-32">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">About Me</h2>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-gray-900 dark:text-white mb-6">소개</h2>
               <div className="w-20 h-1.5 bg-indigo-600 mb-6 rounded-full"></div>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">사용자 경험을 최우선으로 생각하는 프론트엔드 개발자입니다.</p>
             </motion.div>

@@ -59,8 +59,8 @@ export default function Contact() {
     },
     {
       name: "Blog",
-      value: "blog.example.com",
-      href: "https://blog.example.com",
+      value: "블로그 바로가기",
+      href: "https://aksel26.netlify.app/",
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
