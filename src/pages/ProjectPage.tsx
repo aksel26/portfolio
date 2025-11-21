@@ -111,86 +111,80 @@ export default function ProjectPage() {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.1 }}
-                          className="group relative"
+                          className="relative bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50"
                         >
-                          {/* Timeline connector */}
-                          {index < (project.details?.troubleshooting?.length ?? 0) - 1 && (
-                            <div className="absolute left-6 top-16 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500/50 to-transparent dark:from-indigo-400/30" />
-                          )}
-                          
-                          <div className="relative bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50">
-                            {/* Gradient accent bar */}
-                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
-                            
-                            <div className="p-8">
-                              {/* Header with number badge */}
-                              <div className="flex items-start gap-4 mb-6">
-                                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                                  {index + 1}
-                                </div>
-                                <div className="flex-1">
-                                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                    {item.title}
-                                  </h4>
-                                </div>
-                              </div>
+                          {/* Gradient accent bar */}
+                          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
 
-                              {/* Image */}
+                          <div className="p-6 md:p-8">
+                            {/* Header with number badge */}
+                            <div className="flex items-start gap-4 mb-6">
+                              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                {index + 1}
+                              </div>
+                              <div className="flex-1">
+                                <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                                  {item.title}
+                                </h4>
+                              </div>
+                            </div>
+
+                            {/* 2-column layout: Image left, Content right */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              {/* Left: Image */}
                               {item.image && (
-                                <motion.div 
-                                  className="mb-8 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900/50 cursor-zoom-in border border-gray-200 dark:border-gray-700 p-3 hover:border-indigo-500/50 transition-all duration-300"
+                                <motion.div
+                                  className="rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900/50 cursor-zoom-in border border-gray-200 dark:border-gray-700 p-3 hover:border-indigo-500/50 transition-all duration-300 h-fit"
                                   onClick={() => item.image && setSelectedImage(item.image)}
                                   whileHover={{ scale: 1.01 }}
                                   whileTap={{ scale: 0.99 }}
                                 >
-                                  <img 
-                                    src={item.image} 
-                                    alt={item.title} 
+                                  <img
+                                    src={item.image}
+                                    alt={item.title}
                                     className="w-full h-auto object-cover rounded-lg"
                                   />
                                 </motion.div>
                               )}
-                              
-                              {/* Content sections */}
-                              <div className="space-y-6">
+
+                              {/* Right: Content sections */}
+                              <div className="space-y-5">
                                 {/* Problem */}
-                                <div className="flex gap-4">
+                                <div className="flex gap-3">
                                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
                                     <AlertCircle className="w-5 h-5 text-red-500" />
                                   </div>
                                   <div className="flex-1">
                                     <span className="font-semibold text-gray-900 dark:text-white block mb-2">문제 상황</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{item.problem}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">{item.problem}</p>
                                   </div>
                                 </div>
 
                                 {/* Solution */}
-                                <div className="flex gap-4">
+                                <div className="flex gap-3">
                                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center">
                                     <CheckCircle className="w-5 h-5 text-green-500" />
                                   </div>
                                   <div className="flex-1">
                                     <span className="font-semibold text-gray-900 dark:text-white block mb-2">해결 과정</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">{item.solution}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm whitespace-pre-line">{item.solution}</p>
                                   </div>
                                 </div>
 
                                 {/* Result */}
-                                <div className="pl-14">
-                                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-4 border-l-4 border-indigo-500">
-                                    <span className="font-semibold text-gray-900 dark:text-white block mb-2">성과</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{item.result}</p>
-                                  </div>
+                                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-4 border-l-4 border-indigo-500">
+                                  <span className="font-semibold text-gray-900 dark:text-white block mb-2">성과</span>
+                                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">{item.result}</p>
                                 </div>
 
                                 {/* Learning */}
-                                <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center">
                                     <Lightbulb className="w-5 h-5 text-yellow-500" />
                                   </div>
                                   <div className="flex-1">
                                     <span className="font-semibold text-gray-900 dark:text-white block mb-2">배운점</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{item.learning}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">{item.learning}</p>
                                   </div>
                                 </div>
                               </div>
