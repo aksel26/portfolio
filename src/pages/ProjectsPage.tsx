@@ -1,14 +1,40 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { projects, Project } from "../data/projects";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Briefcase } from "lucide-react";
 import Footer from "../components/Footer";
+import { useMemo } from "react";
 
 /**
  * Projects 페이지 컴포넌트
- * 모든 프로젝트를 그리드로 표시
+ * 회사별로 그룹화된 프로젝트 표시
  */
 export default function ProjectsPage() {
+  // 회사별로 프로젝트 그룹화
+  const projectsByCompany = useMemo(() => {
+    const grouped = projects.reduce((acc, project) => {
+      const company = project.company;
+      if (!acc[company]) {
+        acc[company] = [];
+      }
+      acc[company].push(project);
+      return acc;
+    }, {} as Record<string, Project[]>);
+
+    // 회사명 순서 정의 (ACG를 맨 위로)
+    const companyOrder = ["ACG", "Startup X", "Freelance", "Personal"];
+    const sortedGroups = Object.entries(grouped).sort(([a], [b]) => {
+      const indexA = companyOrder.indexOf(a);
+      const indexB = companyOrder.indexOf(b);
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+      return indexA - indexB;
+    });
+
+    return sortedGroups;
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -57,17 +83,43 @@ export default function ProjectsPage() {
           </motion.div>
         </div>
 
-        {/* 프로젝트 그리드 */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+        {/* 회사별로 그룹화된 프로젝트 */}
+        <div className="space-y-20">
+          {projectsByCompany.map(([company, companyProjects], groupIndex) => (
+            <motion.section
+              key={company}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
+            >
+              {/* 회사명 헤더 */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <Briefcase className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                    {company}
+                  </h2>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    ({companyProjects.length})
+                  </span>
+                </div>
+                <div className="h-1 w-20 bg-indigo-600 dark:bg-indigo-400 rounded-full"></div>
+              </div>
+
+              {/* 프로젝트 그리드 */}
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {companyProjects.map((project) => (
+                  <ProjectCard key={project.title} project={project} />
+                ))}
+              </motion.div>
+            </motion.section>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Footer */}
@@ -136,9 +188,16 @@ function ProjectCard({ project }: ProjectCardProps) {
         {/* 콘텐츠 */}
         <div className="p-6">
           {/* 제목 */}
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
             {project.title}
           </h3>
+
+          {/* 기간 */}
+          {project.period && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+              {project.period}
+            </p>
+          )}
 
           {/* 설명 */}
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 text-sm line-clamp-3">

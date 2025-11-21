@@ -23,6 +23,8 @@ export interface Project {
   github: string;
   demo: string;
   index: number;
+  company: string; // 회사명 또는 카테고리 (예: "ACG", "Personal", etc.)
+  period?: string; // 프로젝트 기간 (선택사항)
   details?: ProjectDetailContent;
 }
 
@@ -36,6 +38,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 1,
+    company: "ACG",
+    period: "2023.01 - 2024.12",
     details: {
       overview: "기존 오프라인 중심의 인적성 검사 환경에서 온라인 전환이 가속화됨에 따라, 검사 운영 전 과정을 디지털화하고 통합 관리할 수 있는 온라인 플랫폼 프로젝트입니다.",
       troubleshooting: [
@@ -75,6 +79,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 2,
+    company: "Personal",
+    period: "2023.06 - 2023.09",
   },
   {
     title: "날씨 대시보드",
@@ -85,6 +91,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 3,
+    company: "Personal",
+    period: "2023.03 - 2023.04",
   },
   {
     title: "포트폴리오 빌더",
@@ -95,6 +103,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 4,
+    company: "Freelance",
+    period: "2022.11 - 2022.12",
   },
   {
     title: "태스크 관리 앱",
@@ -104,6 +114,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 5,
+    company: "Personal",
+    period: "2022.08 - 2022.10",
   },
   {
     title: "소셜 미디어 분석 도구",
@@ -113,6 +125,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 6,
+    company: "Startup X",
+    period: "2022.03 - 2022.07",
   },
   {
     title: "실시간 채팅 애플리케이션",
@@ -122,6 +136,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 7,
+    company: "Personal",
+    period: "2021.12 - 2022.02",
   },
   {
     title: "AI 이미지 갤러리",
@@ -131,6 +147,8 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 8,
+    company: "Freelance",
+    period: "2021.09 - 2021.11",
   },
   {
     title: "음악 스트리밍 플랫폼",
@@ -140,5 +158,7 @@ export const projects: Project[] = [
     github: "#",
     demo: "#",
     index: 9,
+    company: "Personal",
+    period: "2021.06 - 2021.08",
   },
 ];

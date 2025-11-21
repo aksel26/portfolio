@@ -133,10 +133,24 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         {/* 콘텐츠 */}
         <div className="p-6">
+          {/* 회사명 배지 */}
+          <div className="mb-3">
+            <span className="inline-block px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 rounded-full">
+              {project.company}
+            </span>
+          </div>
+
           {/* 제목 */}
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
             {project.title}
           </h3>
+
+          {/* 기간 */}
+          {project.period && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+              {project.period}
+            </p>
+          )}
 
           {/* 설명 */}
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 text-sm line-clamp-3">
