@@ -60,6 +60,8 @@ body {
   word-break: keep-all;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.75;
+  letter-spacing: 0.015em;
 }
 
 html {
