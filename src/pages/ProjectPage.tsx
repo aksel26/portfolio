@@ -104,7 +104,7 @@ export default function ProjectPage() {
                 {project.details.troubleshooting && project.details.troubleshooting.length > 0 && (
                   <section>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">트러블 슈팅</h3>
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       {project.details.troubleshooting.map((item, index) => (
                         <motion.div
                           key={index}

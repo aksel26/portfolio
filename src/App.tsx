@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import Header from './components/Header'
 import ScrollProgress from './components/ScrollProgress'
@@ -12,19 +12,20 @@ import ScrollToTop from './components/ScrollToTop'
  * 메인 App 컴포넌트
  * 전체 페이지 레이아웃과 섹션 구성
  */
-function App() {
+function AppContent() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
   return (
-    <ThemeProvider>
-      <Router>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-          {/* 스크롤 진행바 */}
-          <ScrollProgress />
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      {/* 스크롤 진행바 */}
+      <ScrollProgress />
 
-          {/* 페이지 네비게이션 */}
-          <PageNavigation />
+      {/* 페이지 네비게이션 - 홈에서만 표시 */}
+      {isHome && <PageNavigation />}
 
-          {/* 헤더/네비게이션 */}
-          <Header />
+      {/* 헤더/네비게이션 */}
+      <Header />
 
           {/* 메인 콘텐츠 */}
           <Routes>
@@ -33,9 +34,17 @@ function App() {
             <Route path="/project/:id" element={<ProjectPage />} />
           </Routes>
 
-          {/* Scroll To Top Button */}
-          <ScrollToTop />
-        </div>
+      {/* Scroll To Top Button */}
+      <ScrollToTop />
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Router>
+        <AppContent />
       </Router>
     </ThemeProvider>
   )
