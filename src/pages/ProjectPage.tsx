@@ -104,7 +104,7 @@ export default function ProjectPage() {
                 {project.details.troubleshooting && project.details.troubleshooting.length > 0 && (
                   <section>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">트러블 슈팅</h3>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6">
                       {project.details.troubleshooting.map((item, index) => (
                         <motion.div
                           key={index}
@@ -118,7 +118,7 @@ export default function ProjectPage() {
 
                           <div className="p-6 md:p-8">
                             {/* Header with number badge */}
-                            <div className="flex items-start gap-4 mb-6">
+                            <div className="flex items-center gap-4 mb-6">
                               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
                                 {index + 1}
                               </div>
@@ -130,7 +130,7 @@ export default function ProjectPage() {
                             </div>
 
                             {/* 2-column layout: Image left, Content right */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1  gap-6">
                               {/* Left: Image */}
                               {item.image && (
                                 <motion.div
@@ -156,7 +156,7 @@ export default function ProjectPage() {
                                   </div>
                                   <div className="flex-1">
                                     <span className="font-semibold text-gray-900 dark:text-white block mb-2">문제 상황</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">{item.problem}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md">{item.problem}</p>
                                   </div>
                                 </div>
 
@@ -167,14 +167,14 @@ export default function ProjectPage() {
                                   </div>
                                   <div className="flex-1">
                                     <span className="font-semibold text-gray-900 dark:text-white block mb-2">해결 과정</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm whitespace-pre-line">{item.solution}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md whitespace-pre-line">{item.solution}</p>
                                   </div>
                                 </div>
 
                                 {/* Result */}
                                 <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-4 border-l-4 border-indigo-500">
                                   <span className="font-semibold text-gray-900 dark:text-white block mb-2">성과</span>
-                                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">{item.result}</p>
+                                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md">{item.result}</p>
                                 </div>
 
                                 {/* Learning */}
@@ -184,7 +184,7 @@ export default function ProjectPage() {
                                   </div>
                                   <div className="flex-1">
                                     <span className="font-semibold text-gray-900 dark:text-white block mb-2">배운점</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">{item.learning}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md">{item.learning}</p>
                                   </div>
                                 </div>
                               </div>
