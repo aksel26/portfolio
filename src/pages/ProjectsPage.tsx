@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { projects, Project } from "../data/projects";
-import { ArrowLeft, Briefcase } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Footer from "../components/Footer";
 import { useMemo } from "react";
 
@@ -94,8 +94,7 @@ export default function ProjectsPage() {
             >
               {/* 회사명 헤더 */}
               <div className="mb-8">
-                <div className="flex items-center gap-3 mb-3">
-                  <Briefcase className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                <div className="flex items-center gap-3">
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
                     {company}
                   </h2>
@@ -103,7 +102,6 @@ export default function ProjectsPage() {
                     ({companyProjects.length})
                   </span>
                 </div>
-                <div className="h-1 w-20 bg-indigo-600 dark:bg-indigo-400 rounded-full"></div>
               </div>
 
               {/* 프로젝트 그리드 */}

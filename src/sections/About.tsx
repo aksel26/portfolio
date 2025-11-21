@@ -92,8 +92,7 @@ export default function About() {
             transition={{ duration: 0.8 }}
           >
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-800">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-                <div className="w-1 h-6 bg-indigo-600 rounded-full"></div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 안녕하세요
               </h3>
               <div className="space-y-3 text-gray-600 dark:text-gray-300 leading-relaxed text-sm md:text-base">
