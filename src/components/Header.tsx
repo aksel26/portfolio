@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 
 /**
  * 헤더 컴포넌트
@@ -11,6 +12,8 @@ export default function Header() {
   const { isDark, toggleTheme } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +24,10 @@ export default function Header() {
   }, [])
 
   const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About', href: isHome ? '#about' : '/#about' },
+    { name: 'Projects', href: isHome ? '#projects' : '/#projects' },
+    { name: 'Experience', href: isHome ? '#experience' : '/#experience' },
+    { name: 'Contact', href: isHome ? '#contact' : '/#contact' },
   ]
 
   const handleNavClick = () => {
@@ -46,29 +49,30 @@ export default function Header() {
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* 로고 */}
-            <motion.a
-              href="#"
-              className="text-2xl font-bold text-gray-900 dark:text-white"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Portfolio
-            </motion.a>
+            <Link to="/">
+              <motion.div
+                className="text-2xl font-bold text-gray-900 dark:text-white"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Portfolio
+              </motion.div>
+            </Link>
 
             {/* 데스크톱 네비게이션 */}
             <nav className="hidden md:flex items-center gap-8">
               {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  {item.name}
-                </motion.a>
+                <Link key={item.name} to={item.href}>
+                  <motion.div
+                    className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -2 }}
+                  >
+                    {item.name}
+                  </motion.div>
+                </Link>
               ))}
             </nav>
 
@@ -130,17 +134,20 @@ export default function Header() {
                     >
                       <nav className="py-2">
                         {navItems.map((item, index) => (
-                          <motion.a
+                          <Link
                             key={item.name}
-                            href={item.href}
+                            to={item.href}
                             onClick={handleNavClick}
-                            className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.05 }}
                           >
-                            {item.name}
-                          </motion.a>
+                            <motion.div
+                              className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                            >
+                              {item.name}
+                            </motion.div>
+                          </Link>
                         ))}
                       </nav>
                     </motion.div>

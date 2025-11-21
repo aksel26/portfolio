@@ -4,6 +4,7 @@ import Header from './components/Header'
 import ScrollProgress from './components/ScrollProgress'
 import PageNavigation from './components/PageNavigation'
 import Home from './pages/Home'
+import ProjectsPage from './pages/ProjectsPage'
 import ProjectPage from './pages/ProjectPage'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -28,6 +29,7 @@ function App() {
           {/* 메인 콘텐츠 */}
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/project/:id" element={<ProjectPage />} />
           </Routes>
 
