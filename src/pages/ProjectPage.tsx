@@ -34,8 +34,8 @@ export default function ProjectPage() {
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Project not found</h2>
-          <Link to="/" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Back to Home
+          <Link to="/projects" className="text-indigo-600 hover:text-indigo-700 font-medium">
+            Back to Projects
           </Link>
         </div>
       </div>
@@ -45,8 +45,8 @@ export default function ProjectPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 pt-20">
       <div className="max-w-4xl mx-auto px-6 py-12">
-        <Link 
-          to="/" 
+        <Link
+          to="/projects"
           className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 mb-8 transition-colors"
         >
           <ArrowLeft size={20} />
