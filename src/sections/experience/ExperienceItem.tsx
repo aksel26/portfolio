@@ -4,6 +4,41 @@ import { useState } from "react";
 
 
 
+const COMMON_KEYWORDS = [
+  "AWS", "Firebase", "Google Sheets API", "Vercel", "PWA", "Monorepo", 
+  "Claude AI", "Google AI", "UI/UX", "Supabase", "SEO", "SSR", "React", 
+  "Vite", "Kakao API", "i18n", "Excel", "SheetJS", "Handlebars", "Chart.js", 
+  "JSZip", "Node.js", "Next.js", "Sharp", "Swiper.js", "Winston", 
+  "Framer Motion", "Recoil", "Web Worker", "Intersection Observer", 
+  "GraphQL", "Apollo Client", "Ant Design", "Redux", "CI/CD", "API",
+  "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind", "Sass", "Styled Components"
+];
+
+const highlightText = (text: string, keywords: string[]) => {
+  if (!keywords.length) return text;
+  
+  // 중복 제거 및 길이순 정렬 (긴 단어 먼저 매칭)
+  const uniqueKeywords = Array.from(new Set(keywords));
+  const sortedKeywords = uniqueKeywords.sort((a, b) => b.length - a.length);
+  
+  // 특수문자 이스케이프
+  const escapedKeywords = sortedKeywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  
+  const pattern = new RegExp(`(${escapedKeywords.join('|')})`, 'gi');
+  const parts = text.split(pattern);
+  
+  return parts.map((part, i) => {
+    const isKeyword = uniqueKeywords.some(k => k.toLowerCase() === part.toLowerCase());
+    if (isKeyword) {
+      return (
+        <span key={i} className="font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-1 py-0.5 rounded mx-0.5 text-[0.95em]">
+          {part}
+        </span>
+      );
+    }
+    return part;
+  });
+};
 interface ExperienceItemProps {
   experience: Experience;
   index: number;
@@ -119,8 +154,8 @@ export function ExperienceItem({ experience, isLast }: ExperienceItemProps) {
                         {project.name}
                       </h4>
                       <p className="text-xs font-mono text-gray-500 dark:text-gray-500 mb-2">{project.period}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
-                        {project.description}
+                      <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
+                        {highlightText(project.description, [...(project.tags || []), ...COMMON_KEYWORDS])}
                       </p>
                     </div>
 
@@ -128,9 +163,11 @@ export function ExperienceItem({ experience, isLast }: ExperienceItemProps) {
                     {project.achievements.length > 0 && (
                       <ul className="space-y-2 mb-4">
                         {project.achievements.map((achievement, achievementIndex) => (
-                          <li key={achievementIndex} className="text-gray-600 dark:text-gray-300 text-sm flex items-start gap-2.5">
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 opacity-60" />
-                            <span className="leading-relaxed">{achievement}</span>
+                          <li key={achievementIndex} className="text-gray-600 dark:text-gray-300 text-base flex items-start gap-2.5">
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0 opacity-60" />
+                            <span className="leading-relaxed">
+                              {highlightText(achievement, [...(project.tags || []), ...COMMON_KEYWORDS])}
+                            </span>
                           </li>
                         ))}
                       </ul>
