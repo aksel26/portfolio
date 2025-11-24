@@ -100,78 +100,67 @@ function ProjectCard({ project }: ProjectCardProps) {
       variants={cardVariants}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3 }}
-      className="group relative bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
+      className="group relative h-[450px] rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all"
     >
-      <Link to={`/project/${project.index}`} className="block">
-        {/* 썸네일 이미지 */}
-        <div className="relative overflow-hidden h-64">
-          {/* 프로젝트 번호 */}
-          <div className="absolute top-4 left-4 z-10">
-            <span className="inline-block px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow-lg">
-              #{project.index}
-            </span>
-          </div>
+      <Link to={`/project/${project.index}`} className="block h-full relative">
+        {/* Full Background Image */}
+        <motion.img
+          src={project.image}
+          alt={project.title}
+          className="absolute inset-0 w-full h-full object-none transition-transform duration-700 group-hover:scale-110"
+        />
 
-          {/* 이미지 */}
-          <motion.img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.4 }}
-          />
+        {/* Overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-300" />
 
-          {/* 호버 오버레이 */}
-          <motion.div
-            className="absolute inset-0 bg-indigo-600/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-          >
-            <span className="text-white font-semibold text-lg">View Details</span>
-          </motion.div>
+        {/* Project Number Badge */}
+        <div className="absolute top-6 left-6 z-10">
+          <span className="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full shadow-lg">
+            {project.index}
+          </span>
         </div>
 
-        {/* 콘텐츠 */}
-        <div className="p-6">
-          {/* 회사명 배지 */}
-          <div className="mb-3">
-            <span className="inline-block px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 rounded-full">
-              {project.company}
-            </span>
-          </div>
+        {/* Content Overlay - Glassmorphism */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-20">
+          <div className="flex flex-col gap-2">
+            {/* Company & Period */}
+            <div className="flex items-center justify-between mb-1">
+              <span className="inline-block px-3 py-1 text-xs font-semibold text-indigo-300 bg-indigo-900/50 border border-indigo-500/30 rounded-full backdrop-blur-sm">
+                {project.company}
+              </span>
+              {project.period && (
+                <span className="text-xs text-gray-300 font-medium bg-black/30 px-2 py-1 rounded-md backdrop-blur-sm">
+                  {project.period}
+                </span>
+              )}
+            </div>
 
-          {/* 제목 */}
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
-            {project.title}
-          </h3>
+            {/* Title */}
+            <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">
+              {project.title}
+            </h3>
 
-          {/* 기간 */}
-          {project.period && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-              {project.period}
+            {/* Description */}
+            <p className="text-gray-300 text-sm line-clamp-2 mb-3">
+              {project.description}
             </p>
-          )}
 
-          {/* 설명 */}
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 text-sm line-clamp-3">
-            {project.description}
-          </p>
-
-          {/* 기술 스택 */}
-          <div className="flex flex-wrap gap-2">
-            {project.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-xs font-semibold text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg"
-              >
-                {tag}
-              </span>
-            ))}
-            {project.tags.length > 3 && (
-              <span className="px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-                +{project.tags.length - 3}
-              </span>
-            )}
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2">
+              {project.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 text-[10px] font-medium text-gray-200 bg-white/10 border border-white/10 rounded-md backdrop-blur-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+              {project.tags.length > 3 && (
+                <span className="px-2 py-1 text-[10px] font-medium text-gray-200 bg-white/10 border border-white/10 rounded-md backdrop-blur-sm">
+                  +{project.tags.length - 3}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </Link>

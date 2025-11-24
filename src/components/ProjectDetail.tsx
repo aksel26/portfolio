@@ -78,7 +78,7 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
         </div>
 
         {/* Content Section */}
-        <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar">
+        <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar w-full">
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
               <span
@@ -90,7 +90,7 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
             ))}
           </div>
 
-          <div className="prose dark:prose-invert max-w-none mb-8">
+          <div className="prose dark:prose-invert  mb-8">
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               {project.description}
             </p>
