@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Github, ExternalLink, AlertCircle, CheckCircle, Lightbulb, X } from 'lucide-react';
+import { ArrowLeft, Github, ExternalLink, X } from 'lucide-react';
 import { projects } from '../data/projects';
 import { useState, useEffect } from 'react';
 
@@ -47,9 +47,9 @@ export default function ProjectPage() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white mb-8 transition-colors text-sm font-medium"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={18} />
           Back to Projects
         </Link>
 
@@ -59,43 +59,42 @@ export default function ProjectPage() {
           transition={{ duration: 0.5 }}
         >
           {/* Image Section */}
-          <div className="relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden mb-10 shadow-xl">
+          {/* <div className="relative h-64 sm:h-80 md:h-[500px] rounded-xl overflow-hidden mb-12 bg-gray-100 dark:bg-gray-800"> */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-gray-900 dark:text-white tracking-tight">
+                {project.title}
+              </h1>
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="h-64 sm:h-80 md:h-[500px] rounded-xl object-cover mx-auto my-8"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 sm:p-8">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
-                {project.title}
-              </h1>
-            </div>
-          </div>
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8 sm:p-10"> */}
+            {/* </div> */}
+          {/* </div> */}
 
           {/* Content Section */}
           <div className="prose dark:prose-invert max-w-none">
-            <div className="flex flex-wrap gap-2 mb-8">
+            <div className="flex flex-wrap gap-2 mb-10">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 rounded-full"
+                  className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-full"
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-            {/* <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-12">
-              {project.description}
-            </p> */}
-
             {/* Detailed Content */}
             {project.details && (
-              <div className="space-y-12 mb-12">
+              <div className="space-y-16 mb-16">
                 {/* Overview */}
                 <section>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">개요</h3>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span className="w-1 h-6 bg-indigo-500 rounded-full"></span>
+                    개요
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-8 text-lg font-light">
                     {project.details.overview}
                   </p>
                 </section>
@@ -103,38 +102,35 @@ export default function ProjectPage() {
                 {/* Troubleshooting */}
                 {project.details.troubleshooting && project.details.troubleshooting.length > 0 && (
                   <section>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">트러블 슈팅</h3>
-                    <div className="grid grid-cols-1 gap-6">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
+                      <span className="w-1 h-6 bg-indigo-500 rounded-full"></span>
+                      트러블 슈팅
+                    </h3>
+                    <div className="grid grid-cols-1 gap-8">
                       {project.details.troubleshooting.map((item, index) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.1 }}
-                          className="relative bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50"
+                          className="group bg-gray-50 dark:bg-gray-800/30 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:border-indigo-500/30 transition-all duration-300"
                         >
-                          {/* Gradient accent bar */}
-                          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
-
                           <div className="p-6 md:p-8">
-                            {/* Header with number badge */}
-                            <div className="flex items-center gap-4 mb-6">
-                              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                            {/* Header */}
+                            <div className="flex items-start gap-4 mb-6">
+                              <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">
                                 {index + 1}
-                              </div>
-                              <div className="flex-1">
-                                <h4 className="text-xl font-bold text-gray-900 dark:text-white">
-                                  {item.title}
-                                </h4>
-                              </div>
+                              </span>
+                              <h4 className="text-xl font-bold text-gray-900 dark:text-white leading-tight mt-0.5">
+                                {item.title}
+                              </h4>
                             </div>
 
-                            {/* 2-column layout: Image left, Content right */}
-                            <div className="grid grid-cols-1  gap-6">
-                              {/* Left: Image */}
+                            <div className="flex flex-col gap-8">
+                              {/* Top: Image */}
                               {item.image && (
                                 <motion.div
-                                  className="rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900/50 cursor-zoom-in border border-gray-200 dark:border-gray-700 p-3 hover:border-indigo-500/50 transition-all duration-300 h-fit"
+                                  className="p-4 rounded-xl overflow-hidden bg-white dark:bg-gray-900 cursor-zoom-in border border-gray-200 dark:border-gray-700 shadow-sm"
                                   onClick={() => item.image && setSelectedImage(item.image)}
                                   whileHover={{ scale: 1.01 }}
                                   whileTap={{ scale: 0.99 }}
@@ -142,50 +138,35 @@ export default function ProjectPage() {
                                   <img
                                     src={item.image}
                                     alt={item.title}
-                                    className="w-full h-auto object-cover rounded-lg"
+                                    className="w-full h-auto object-cover"
                                   />
                                 </motion.div>
                               )}
 
-                              {/* Right: Content sections */}
-                              <div className="space-y-5">
+                              {/* Bottom: Content sections */}
+                              <div className="space-y-6">
                                 {/* Problem */}
-                                <div className="flex gap-3">
-                                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
-                                    <AlertCircle className="w-5 h-5 text-red-500" />
-                                  </div>
-                                  <div className="flex-1">
-                                    <span className="font-semibold text-gray-900 dark:text-white block mb-2">문제 상황</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md">{item.problem}</p>
-                                  </div>
+                                <div>
+                                  <span className="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 block">Problem</span>
+                                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">{item.problem}</p>
                                 </div>
 
                                 {/* Solution */}
-                                <div className="flex gap-3">
-                                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center">
-                                    <CheckCircle className="w-5 h-5 text-green-500" />
-                                  </div>
-                                  <div className="flex-1">
-                                    <span className="font-semibold text-gray-900 dark:text-white block mb-2">해결 과정</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md whitespace-pre-line">{item.solution}</p>
-                                  </div>
+                                <div>
+                                  <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-2 block">Solution</span>
+                                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">{item.solution}</p>
                                 </div>
 
                                 {/* Result */}
-                                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-4 border-l-4 border-indigo-500">
-                                  <span className="font-semibold text-gray-900 dark:text-white block mb-2">성과</span>
-                                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md">{item.result}</p>
+                                <div className="bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-100 dark:border-gray-800">
+                                  <span className="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">Result</span>
+                                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-md whitespace-pre-line">{item.result}</p>
                                 </div>
 
                                 {/* Learning */}
-                                <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center">
-                                    <Lightbulb className="w-5 h-5 text-yellow-500" />
-                                  </div>
-                                  <div className="flex-1">
-                                    <span className="font-semibold text-gray-900 dark:text-white block mb-2">배운점</span>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-md">{item.learning}</p>
-                                  </div>
+                                <div>
+                                  <span className="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2 block">Learning</span>
+                                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-md whitespace-pre-line">{item.learning}</p>
                                 </div>
                               </div>
                             </div>
@@ -203,18 +184,18 @@ export default function ProjectPage() {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-8 py-4 bg-gray-900 dark:bg-gray-800 text-white rounded-xl font-semibold hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors text-lg"
+                className="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
               >
-                <Github size={24} />
+                <Github size={20} />
                 View Code
               </a>
               <a
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors text-lg"
+                className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
               >
-                <ExternalLink size={24} />
+                <ExternalLink size={20} />
                 Live Demo
               </a>
             </div>
