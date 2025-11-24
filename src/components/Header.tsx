@@ -17,11 +17,25 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      const mainElement = document.querySelector('main');
+      const scrollPosition = mainElement ? mainElement.scrollTop : window.scrollY;
+      setScrolled(scrollPosition > 50);
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+
+    // Listen to both window and main element
+    window.addEventListener('scroll', handleScroll);
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (mainElement) {
+        mainElement.removeEventListener('scroll', handleScroll);
+      }
+    }
+  }, [location.pathname]) // Re-run when location changes to re-attach to new main if needed
 
   const navItems = [
     { name: 'About', href: isHome ? '#about' : '/#about' },
@@ -30,21 +44,43 @@ export default function Header() {
     { name: 'Contact', href: isHome ? '#contact' : '/#contact' },
   ]
 
-  const handleNavClick = () => {
-    setIsMobileMenuOpen(false)
-  }
+  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Mobile menu close
+    setIsMobileMenuOpen(false);
+
+    // Only handle hash links on home page
+    if (isHome && href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      const mainElement = document.querySelector('main');
+
+      if (element && mainElement) {
+        // Calculate position relative to the main container's current scroll
+        // element.getBoundingClientRect().top is relative to viewport
+        // mainElement.getBoundingClientRect().top is relative to viewport
+        // We need the offset from the top of the main container
+        
+        // Since main is the scroll container, we can just use element.offsetTop if it's a direct child, 
+        // but it's inside sections. 
+        // Better approach: element.scrollIntoView works but might scroll the whole window if not careful.
+        // Let's try element.scrollIntoView first as it's standard.
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-2 left-1/2 z-50 -translate-x-1/2 md:w-[calc(100%-1rem)] md:max-w-5xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
           scrolled
-            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg'
-            : 'bg-transparent'
+            ? 'rounded-full border border-white/20 dark:border-gray-700/30 bg-white/10 dark:bg-gray-900/20 backdrop-blur-md shadow-lg'
+            : 'w-full bg-transparent p-0'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -62,7 +98,11 @@ export default function Header() {
             {/* 데스크톱 네비게이션 */}
             <nav className="hidden md:flex items-center gap-8">
               {navItems.map((item, index) => (
-                <Link key={item.name} to={item.href}>
+                <Link 
+                  key={item.name} 
+                  to={item.href}
+                  onClick={(e) => handleScrollToSection(e, item.href)}
+                >
                   <motion.div
                     className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                     initial={{ opacity: 0, y: -20 }}
@@ -137,7 +177,7 @@ export default function Header() {
                           <Link
                             key={item.name}
                             to={item.href}
-                            onClick={handleNavClick}
+                            onClick={(e) => handleScrollToSection(e, item.href)}
                           >
                             <motion.div
                               className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"

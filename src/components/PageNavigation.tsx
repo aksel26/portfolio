@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 /**
  * 페이지 네비게이션 컴포넌트
@@ -7,7 +7,6 @@ import { useState, useEffect, useRef } from "react";
  */
 export default function PageNavigation() {
   const [activeSection, setActiveSection] = useState("hero");
-  const visibleSections = useRef(new Set<string>());
 
   const sections = [
     { id: "hero", label: "Home" },
@@ -71,10 +70,19 @@ export default function PageNavigation() {
     // 초기 업데이트
     updateActiveSection();
 
-    // 스크롤 이벤트 리스너
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    // 스크롤 이벤트 리스너 (main 요소에서 스크롤 감지)
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.addEventListener("scroll", updateActiveSection, { passive: true });
+    } else {
+      // Fallback if main is not yet available or for other pages
+      window.addEventListener("scroll", updateActiveSection, { passive: true });
+    }
 
     return () => {
+      if (mainElement) {
+        mainElement.removeEventListener("scroll", updateActiveSection);
+      }
       window.removeEventListener("scroll", updateActiveSection);
     };
   }, []);
