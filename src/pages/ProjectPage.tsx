@@ -4,7 +4,7 @@ import { ArrowLeft, Github, ExternalLink, X } from 'lucide-react';
 import { projects } from '../data/projects';
 import { useState, useEffect } from 'react';
 
-export default function ProjectPage() {
+  export default function ProjectPage() {
   const { id } = useParams();
   const project = projects.find((p) => p.index === Number(id));
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -59,18 +59,37 @@ export default function ProjectPage() {
           transition={{ duration: 0.5 }}
         >
           {/* Image Section */}
-          {/* <div className="relative h-64 sm:h-80 md:h-[500px] rounded-xl overflow-hidden mb-12 bg-gray-100 dark:bg-gray-800"> */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-gray-900 dark:text-white tracking-tight">
-                {project.title}
-              </h1>
-            <img
-              src={project.image}
-              alt={project.title}
-              className="h-64 sm:h-80 md:h-[500px] rounded-xl object-cover mx-auto my-8"
-            />
-            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8 sm:p-10"> */}
-            {/* </div> */}
-          {/* </div> */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-gray-900 dark:text-white tracking-tight">
+            {project.title}
+          </h1>
+          <img
+            src={project.image}
+            alt={project.title}
+            className="h-64 sm:h-80 md:h-[500px] rounded-xl object-cover mx-auto my-8"
+          />
+
+          {/* Project Images Masonry Grid */}
+          {project.images && project.images.length > 0 && (
+            <div className="mb-16 columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+              {project.images.map((image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="break-inside-avoid relative rounded-xl overflow-hidden shadow-lg group cursor-zoom-in"
+                  onClick={() => setSelectedImage(image)}
+                >
+                  <img
+                    src={image}
+                    alt={`Project screenshot ${index + 1}`}
+                    className="w-full h-auto transform transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           {/* Content Section */}
           <div className="prose dark:prose-invert max-w-none">

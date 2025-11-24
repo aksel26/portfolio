@@ -5,6 +5,11 @@ import acgTs2 from '../assets/projects/acg-ts-2.png';
 import acgTs3 from '../assets/projects/acg-ts-3.png';
 import acgMealTs1 from '../assets/projects/acg-meal/acg-meal-ts-1.png';
 import acgMealTs2 from '../assets/projects/acg-meal/acg-meal-ts-2.png';
+import acgMeal1 from '../assets/projects/acg-meal/acg-meal-1.png';
+import acgMeal2 from '../assets/projects/acg-meal/acg-meal-2.png';
+import acgMeal3 from '../assets/projects/acg-meal/acg-meal-3.png';
+import acgMeal4 from '../assets/projects/acg-meal/acg-meal-4.png';
+import acgMeal5 from '../assets/projects/acg-meal/acg-meal-5.png';
 
 export interface ProjectDetailContent {
   overview: string;
@@ -22,6 +27,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  images?: string[];
   tags: string[];
   github: string;
   demo: string;
@@ -78,6 +84,7 @@ export const projects: Project[] = [
     description:
       "불편했던 기존 식대 입력 방식을 개선하고자 진행한 소규모 프로젝트입니다. 기획·디자인·개발까지 End-to-End 전 과정을 직접 경험하며, 꾸준한 서비스 개선을 통해 UI/UX 향상, 비용 최적화, 도메인 호스팅 등 다양한 역량을 쌓을 수 있었습니다.",
     image: acgMealThumbnail,
+    images: [acgMeal1, acgMeal2, acgMeal3, acgMeal4, acgMeal5],
     tags: ["React", "TypeScript", "Next.js", "PWA", "Firebase", "AWS"],
     github: "https://github.com/aksel26/meal-acg-v3",
     demo: "https://meal-acg.vercel.app/",
