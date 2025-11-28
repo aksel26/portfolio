@@ -49,31 +49,22 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
       />
       <motion.div
         layoutId={`project-${project.index}`}
-        className="relative w-full max-w-4xl bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+        className="relative w-full  bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
       >
         {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
-        >
+        <button onClick={onClose} className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors">
           <X size={24} />
         </button>
 
         {/* Image Section */}
         <div className="relative h-64 sm:h-80 md:h-96 shrink-0">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 sm:p-8">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              {project.title}
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">{project.title}</h2>
           </div>
         </div>
 
@@ -81,19 +72,14 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
         <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar w-full">
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 rounded-full"
-              >
+              <span key={tag} className="px-3 py-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 rounded-full">
                 {tag}
               </span>
             ))}
           </div>
 
           <div className="prose dark:prose-invert  mb-8">
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              {project.description}
-            </p>
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{project.description}</p>
 
             {/* Detailed Content */}
             {project.details && (
@@ -101,9 +87,7 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
                 {/* Overview */}
                 <section>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">개요</h3>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {project.details.overview}
-                  </p>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.details.overview}</p>
                 </section>
 
                 {/* Troubleshooting */}
@@ -113,10 +97,8 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
                     <div className="space-y-8">
                       {project.details.troubleshooting.map((item, index) => (
                         <div key={index} className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-100 dark:border-gray-700">
-                          <h4 className="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">
-                            {item.title}
-                          </h4>
-                          
+                          <h4 className="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">{item.title}</h4>
+
                           <div className="space-y-4">
                             <div className="flex gap-3">
                               <AlertCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5" />
@@ -181,4 +163,3 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
     </div>
   );
 }
-
